@@ -1,0 +1,740 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.4
+-- Dumped by pg_dump version 16.4
+
+-- Started on 2024-10-12 22:16:02
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: pg_database_owner
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO pg_database_owner;
+
+--
+-- TOC entry 4840 (class 0 OID 0)
+-- Dependencies: 4
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pg_database_owner
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 226 (class 1259 OID 16496)
+-- Name: ctdonhang; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ctdonhang (
+    ctdh_id integer NOT NULL,
+    ctdh_dh_id integer,
+    ctdh_sp_id integer,
+    ctdh_soluong integer,
+    ctdh_gia numeric(10,2)
+);
+
+
+ALTER TABLE public.ctdonhang OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16495)
+-- Name: ctdonhang_ctdh_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ctdonhang_ctdh_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ctdonhang_ctdh_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4841 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: ctdonhang_ctdh_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ctdonhang_ctdh_id_seq OWNED BY public.ctdonhang.ctdh_id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16484)
+-- Name: donhang; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.donhang (
+    dh_id integer NOT NULL,
+    dh_ngaydat date,
+    dh_tenkh character varying(100) NOT NULL,
+    dh_diachi character varying(255),
+    dh_sdt character varying(15),
+    dh_emailkh character varying(100),
+    dh_trangthaiid integer
+);
+
+
+ALTER TABLE public.donhang OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16483)
+-- Name: donhang_dh_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.donhang_dh_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.donhang_dh_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4842 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: donhang_dh_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.donhang_dh_id_seq OWNED BY public.donhang.dh_id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16463)
+-- Name: nhacungcap; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.nhacungcap (
+    ncc_id integer NOT NULL,
+    ncc_ten character varying(255) NOT NULL,
+    ncc_diachi character varying(255),
+    ncc_sdt character varying(255),
+    ncc_email character varying(255)
+);
+
+
+ALTER TABLE public.nhacungcap OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16462)
+-- Name: nhacungcap_ncc_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.nhacungcap_ncc_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.nhacungcap_ncc_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4843 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: nhacungcap_ncc_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.nhacungcap_ncc_id_seq OWNED BY public.nhacungcap.ncc_id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16449)
+-- Name: quyen; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.quyen (
+    quyen_id integer NOT NULL,
+    quyen_ten character varying(20)
+);
+
+
+ALTER TABLE public.quyen OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16448)
+-- Name: quyen_quyen_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.quyen_quyen_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.quyen_quyen_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4844 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: quyen_quyen_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.quyen_quyen_id_seq OWNED BY public.quyen.quyen_id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16470)
+-- Name: sanpham; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sanpham (
+    sp_id integer NOT NULL,
+    sp_ten character varying(255) NOT NULL,
+    sp_gia numeric(38,2),
+    sp_slton integer,
+    sp_mota character varying(255),
+    sp_nhacungcapid integer,
+    sp_hinhanh character varying(255)
+);
+
+
+ALTER TABLE public.sanpham OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16469)
+-- Name: sanpham_sp_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.sanpham_sp_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.sanpham_sp_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4845 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: sanpham_sp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.sanpham_sp_id_seq OWNED BY public.sanpham.sp_id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 16513)
+-- Name: taikhoan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.taikhoan (
+    taikhoan_id integer NOT NULL,
+    taikhoan_ten character varying(50) NOT NULL,
+    taikhoan_matkhau character varying(50) NOT NULL,
+    taikhoan_email character varying(100),
+    taikhoan_quyen integer
+);
+
+
+ALTER TABLE public.taikhoan OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16512)
+-- Name: taikhoan_taikhoan_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.taikhoan_taikhoan_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.taikhoan_taikhoan_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4846 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: taikhoan_taikhoan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.taikhoan_taikhoan_id_seq OWNED BY public.taikhoan.taikhoan_id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16456)
+-- Name: trangthaidh; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.trangthaidh (
+    trangthaidh_id integer NOT NULL,
+    trangthaidh_ten character varying(50)
+);
+
+
+ALTER TABLE public.trangthaidh OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16455)
+-- Name: trangthaidh_trangthaidh_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.trangthaidh_trangthaidh_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.trangthaidh_trangthaidh_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4847 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: trangthaidh_trangthaidh_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.trangthaidh_trangthaidh_id_seq OWNED BY public.trangthaidh.trangthaidh_id;
+
+
+--
+-- TOC entry 229 (class 1259 OID 16526)
+-- Name: user_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.user_seq OWNER TO postgres;
+
+--
+-- TOC entry 4654 (class 2604 OID 16499)
+-- Name: ctdonhang ctdh_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ctdonhang ALTER COLUMN ctdh_id SET DEFAULT nextval('public.ctdonhang_ctdh_id_seq'::regclass);
+
+
+--
+-- TOC entry 4653 (class 2604 OID 16487)
+-- Name: donhang dh_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.donhang ALTER COLUMN dh_id SET DEFAULT nextval('public.donhang_dh_id_seq'::regclass);
+
+
+--
+-- TOC entry 4651 (class 2604 OID 16466)
+-- Name: nhacungcap ncc_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.nhacungcap ALTER COLUMN ncc_id SET DEFAULT nextval('public.nhacungcap_ncc_id_seq'::regclass);
+
+
+--
+-- TOC entry 4649 (class 2604 OID 16452)
+-- Name: quyen quyen_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.quyen ALTER COLUMN quyen_id SET DEFAULT nextval('public.quyen_quyen_id_seq'::regclass);
+
+
+--
+-- TOC entry 4652 (class 2604 OID 16558)
+-- Name: sanpham sp_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sanpham ALTER COLUMN sp_id SET DEFAULT nextval('public.sanpham_sp_id_seq'::regclass);
+
+
+--
+-- TOC entry 4655 (class 2604 OID 16516)
+-- Name: taikhoan taikhoan_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taikhoan ALTER COLUMN taikhoan_id SET DEFAULT nextval('public.taikhoan_taikhoan_id_seq'::regclass);
+
+
+--
+-- TOC entry 4650 (class 2604 OID 16459)
+-- Name: trangthaidh trangthaidh_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trangthaidh ALTER COLUMN trangthaidh_id SET DEFAULT nextval('public.trangthaidh_trangthaidh_id_seq'::regclass);
+
+
+--
+-- TOC entry 4831 (class 0 OID 16496)
+-- Dependencies: 226
+-- Data for Name: ctdonhang; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ctdonhang (ctdh_id, ctdh_dh_id, ctdh_sp_id, ctdh_soluong, ctdh_gia) FROM stdin;
+1	1	1	10	10000.00
+2	1	2	5	15000.00
+3	2	3	20	20000.00
+4	3	4	8	12000.00
+5	4	5	7	25000.00
+6	9	5	1	25000.00
+7	9	4	2	12000.00
+8	10	5	5	25000.00
+9	11	5	1	25000.00
+10	12	5	1	25000.00
+11	13	4	1	12000.00
+12	13	5	1	25000.00
+13	14	4	1	12000.00
+14	14	1	1	15000.00
+15	15	8	1	22000.00
+16	16	11	2	35000.00
+17	16	3	1	15000.00
+18	17	4	2	10000.00
+19	17	3	1	30000.00
+20	17	8	2	35000.00
+21	17	1	1	20000.00
+22	17	11	1	25000.00
+23	18	3	1	30000.00
+24	18	5	1	40000.00
+25	18	8	1	35000.00
+26	19	11	1	25000.00
+\.
+
+
+--
+-- TOC entry 4829 (class 0 OID 16484)
+-- Dependencies: 224
+-- Data for Name: donhang; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.donhang (dh_id, dh_ngaydat, dh_tenkh, dh_diachi, dh_sdt, dh_emailkh, dh_trangthaiid) FROM stdin;
+1	2024-08-15	Nguyễn Văn An	123 Đường A	0938475922	vanAn@gmail.com	1
+3	2024-09-10	Lê Quốc Cường	789 Đường C	0933864180	qcuong22@gmail.com	1
+5	2024-10-10	Nguyễn Trần Ánh Tuyết	29 Đường Ngô Thì Nhậm	0379936410	anhtuyet123@gmail.com	4
+4	2024-09-18	Phạm Thị Duyên	101 Đường Võ Thị Sáu	0336785040	ptd@gmail.com	3
+2	2024-08-26	Trần Thị Bích Ngọc	456 Đường B	0912293579	bichngoc@gmail.com	3
+7	2024-10-10	Tuyết Hồng	Cầu Cả Xáng, xã Mỹ Ngãi	0938484848	huong@gmail.com	4
+6	2024-10-10	Tuyết Hồng	Cầu Cả Xáng, xã Mỹ Ngãi	0938484848	huong@gmail.com	4
+8	2024-10-11	Tuyết Hồng	Cầu Cả Xáng, xã Mỹ Ngãi	0938484848	huong@gmail.com	1
+9	2024-10-11	Tuyết Hồng	Cầu Cả Xáng, xã Mỹ Ngãi	0938484848	huong@gmail.com	1
+10	2024-10-11	Trúc Linh	72 đường Ba Sao, Phường 11	0935458271	trlinh@gmail.com	1
+11	2024-10-11	Trúc Linh	72 đường Ba Sao, Phường 11	0935458271	trlinh@gmail.com	1
+13	2024-10-11	Tuyết Hồng	Cầu Cả Xáng, xã Mỹ Ngãi	0336785539	huong@gmail.com	1
+14	2024-10-11	Tuyết Hồng	Cầu Cả Xáng, xã Mỹ Ngãi	0938484848	huong@gmail.com	1
+15	2024-10-11	An an	Đường abc, phường 2	0953736211	abc@gmail.com	1
+12	2024-10-11	Tuyết Hồng	Cầu Cả Xáng, xã Mỹ Ngãi	0938484848	huong@gmail.com	4
+18	2024-10-12	Mỹ Linh	11, đường Ngô Thì Nhậm, Cao Lãnh	0998877665	ling@gmail.com	1
+19	2024-10-12	Mỹ Linh	11, đường Ngô Thì Nhậm, Cao Lãnh	0998877665	ling@gmail.com	1
+16	2024-10-11	Khánh Linh	Phường 1, Cao Lãnh	0334455678	ling@gmail.com	4
+17	2024-10-12	Mỹ Linh	11, đường Ngô Thì Nhậm, Cao Lãnh	0998877665	ling@gmail.com	2
+\.
+
+
+--
+-- TOC entry 4825 (class 0 OID 16463)
+-- Dependencies: 220
+-- Data for Name: nhacungcap; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.nhacungcap (ncc_id, ncc_ten, ncc_diachi, ncc_sdt, ncc_email) FROM stdin;
+2	Bảo Châu	456 Đường Điện Biên Phủ	0912345679	baochau@gmail.com
+1	An an	123 Đường Cách mạng tháng 8	0912345111	an@gmail.com
+5	Ngọc Hân	202 Đường 15	0912345682	han@gmail.com
+9	Loan	11, ql 30	0917349823	camloan@gmail.com
+3	Thảo Nhi	77, Phan Chu Trinh, Phường 7	0912345680	nhinhi@gmail.com
+4	Doanh Thành	101 Đường Trần Đại Nghĩa	0912345681	thanh11@gmail.com
+\.
+
+
+--
+-- TOC entry 4821 (class 0 OID 16449)
+-- Dependencies: 216
+-- Data for Name: quyen; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.quyen (quyen_id, quyen_ten) FROM stdin;
+1	Admin
+2	User
+\.
+
+
+--
+-- TOC entry 4827 (class 0 OID 16470)
+-- Dependencies: 222
+-- Data for Name: sanpham; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sanpham (sp_id, sp_ten, sp_gia, sp_slton, sp_mota, sp_nhacungcapid, sp_hinhanh) FROM stdin;
+3	Ổi	30000.00	50	Ổi Ruby là một trong những loại trái cây bổ dưỡng và thơm ngon nhất. Với lớp vỏ màu xanh lá và thịt màu hồng ngọt ngào, ổi ruby không chỉ hấp dẫn về mặt hình thức mà còn mang lại hương vị tuyệt vời.	1	oi.jpg
+11	mận trắng	25000.00	40	Mận trắng là loại trái cây giòn và ngọt, được ưa chuộng vào mùa hè. Với lớp vỏ màu trắng ngà và thịt quả mọng nước, mận trắng mang lại cảm giác tươi mát và sảng khoái.	3	man_hong_dao.jpg
+1	Táo	20000.00	55	Táo ta là loại trái cây quen thuộc, có vỏ xanh hoặc đỏ, giòn và mọng nước. Đây là loại táo rất được yêu thích trong mùa thu.	9	tao_ta.jpg
+8	Saboche	35000.00	40	Saboche, hay còn gọi là lê Hàn Quốc, là loại trái cây có vị ngọt và thơm, rất được ưa chuộng trong mùa hè.	2	saboche.jpg
+5	Xoài	40000.00	70	Xoài là một trong những loại trái cây nhiệt đới ngon nhất, có hương vị ngọt ngào và thơm mát. Với lớp vỏ vàng óng và thịt quả mềm mại, xoài luôn thu hút mọi ánh nhìn.	5	xoai_tuquy.jpg
+4	Dưa hấu không hột	10000.00	50	Dưa hấu là loại trái cây lý tưởng cho mùa hè, với vị ngọt mát và nhiều nước. Dưa hấu giúp giải khát hiệu quả và bổ sung nước cho cơ thể.	4	duahau_k_hat.jpg
+2	Chuối	15000.00	100	Chuối là một loại trái cây bổ dưỡng, giàu vitamin và khoáng chất, được yêu thích bởi hương vị ngọt ngào và thơm ngon. Chúng tôi cung cấp chuối tươi ngon, được thu hoạch từ các vườn cây sạch và an toàn, đảm bảo chất lượng tốt nhất cho bạn và gia đình.	2	chuoi.jpg
+\.
+
+
+--
+-- TOC entry 4833 (class 0 OID 16513)
+-- Dependencies: 228
+-- Data for Name: taikhoan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.taikhoan (taikhoan_id, taikhoan_ten, taikhoan_matkhau, taikhoan_email, taikhoan_quyen) FROM stdin;
+2	user1	password456	user1@gmail.com	2
+3	admin2	password789	admin2@gmail.com	1
+4	user2	password101	user2@gmail.com	2
+5	user3	password102	user3@gmail.com	2
+6	trúc linh	Linh123	trlinh@gmail.com	2
+9	atula	an12345	an@gmail.com	2
+11	AdminKieu	kieu2308	admink@gmail.com	1
+14	thanh thanh	thanh123	thanh@gmail.com	2
+16	linhlinh	linh123	ling@gmail.com	2
+1	admin1	admin123	admin1@gmail.com	1
+8	hương	huong123	huong@gmail.com	2
+17	cẩm thu	thu123	camthu@gmail.com	2
+\.
+
+
+--
+-- TOC entry 4823 (class 0 OID 16456)
+-- Dependencies: 218
+-- Data for Name: trangthaidh; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.trangthaidh (trangthaidh_id, trangthaidh_ten) FROM stdin;
+1	Chờ xác nhận
+2	Đang giao hàng
+3	Giao hàng thành công
+4	Đã hủy
+\.
+
+
+--
+-- TOC entry 4848 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: ctdonhang_ctdh_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ctdonhang_ctdh_id_seq', 26, true);
+
+
+--
+-- TOC entry 4849 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: donhang_dh_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.donhang_dh_id_seq', 19, true);
+
+
+--
+-- TOC entry 4850 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: nhacungcap_ncc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.nhacungcap_ncc_id_seq', 25, true);
+
+
+--
+-- TOC entry 4851 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: quyen_quyen_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.quyen_quyen_id_seq', 2, true);
+
+
+--
+-- TOC entry 4852 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: sanpham_sp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.sanpham_sp_id_seq', 12, true);
+
+
+--
+-- TOC entry 4853 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: taikhoan_taikhoan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.taikhoan_taikhoan_id_seq', 17, true);
+
+
+--
+-- TOC entry 4854 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: trangthaidh_trangthaidh_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.trangthaidh_trangthaidh_id_seq', 5, true);
+
+
+--
+-- TOC entry 4855 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: user_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_seq', 1, false);
+
+
+--
+-- TOC entry 4667 (class 2606 OID 16501)
+-- Name: ctdonhang ctdonhang_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ctdonhang
+    ADD CONSTRAINT ctdonhang_pkey PRIMARY KEY (ctdh_id);
+
+
+--
+-- TOC entry 4665 (class 2606 OID 16489)
+-- Name: donhang donhang_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.donhang
+    ADD CONSTRAINT donhang_pkey PRIMARY KEY (dh_id);
+
+
+--
+-- TOC entry 4661 (class 2606 OID 16468)
+-- Name: nhacungcap nhacungcap_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.nhacungcap
+    ADD CONSTRAINT nhacungcap_pkey PRIMARY KEY (ncc_id);
+
+
+--
+-- TOC entry 4657 (class 2606 OID 16454)
+-- Name: quyen quyen_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.quyen
+    ADD CONSTRAINT quyen_pkey PRIMARY KEY (quyen_id);
+
+
+--
+-- TOC entry 4663 (class 2606 OID 16560)
+-- Name: sanpham sanpham_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sanpham
+    ADD CONSTRAINT sanpham_pkey PRIMARY KEY (sp_id);
+
+
+--
+-- TOC entry 4669 (class 2606 OID 16518)
+-- Name: taikhoan taikhoan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taikhoan
+    ADD CONSTRAINT taikhoan_pkey PRIMARY KEY (taikhoan_id);
+
+
+--
+-- TOC entry 4671 (class 2606 OID 16520)
+-- Name: taikhoan taikhoan_taikhoan_ten_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taikhoan
+    ADD CONSTRAINT taikhoan_taikhoan_ten_key UNIQUE (taikhoan_ten);
+
+
+--
+-- TOC entry 4659 (class 2606 OID 16461)
+-- Name: trangthaidh trangthaidh_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trangthaidh
+    ADD CONSTRAINT trangthaidh_pkey PRIMARY KEY (trangthaidh_id);
+
+
+--
+-- TOC entry 4674 (class 2606 OID 16502)
+-- Name: ctdonhang ctdonhang_ctdh_dh_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ctdonhang
+    ADD CONSTRAINT ctdonhang_ctdh_dh_id_fkey FOREIGN KEY (ctdh_dh_id) REFERENCES public.donhang(dh_id);
+
+
+--
+-- TOC entry 4675 (class 2606 OID 16561)
+-- Name: ctdonhang ctdonhang_ctdh_sp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ctdonhang
+    ADD CONSTRAINT ctdonhang_ctdh_sp_id_fkey FOREIGN KEY (ctdh_sp_id) REFERENCES public.sanpham(sp_id);
+
+
+--
+-- TOC entry 4673 (class 2606 OID 16490)
+-- Name: donhang donhang_dh_trangthaiid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.donhang
+    ADD CONSTRAINT donhang_dh_trangthaiid_fkey FOREIGN KEY (dh_trangthaiid) REFERENCES public.trangthaidh(trangthaidh_id);
+
+
+--
+-- TOC entry 4672 (class 2606 OID 16478)
+-- Name: sanpham sanpham_sp_nhacungcapid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sanpham
+    ADD CONSTRAINT sanpham_sp_nhacungcapid_fkey FOREIGN KEY (sp_nhacungcapid) REFERENCES public.nhacungcap(ncc_id);
+
+
+--
+-- TOC entry 4676 (class 2606 OID 16521)
+-- Name: taikhoan taikhoan_taikhoan_quyen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taikhoan
+    ADD CONSTRAINT taikhoan_taikhoan_quyen_fkey FOREIGN KEY (taikhoan_quyen) REFERENCES public.quyen(quyen_id);
+
+
+-- Completed on 2024-10-12 22:16:03
+
+--
+-- PostgreSQL database dump complete
+--
+
