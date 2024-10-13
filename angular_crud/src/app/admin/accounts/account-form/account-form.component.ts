@@ -28,6 +28,7 @@ export class AccountFormComponent implements OnInit {
   originalEmail: string | null = null;
   emailExists: boolean = false;
   message: string = '';
+  confirmPassword: string = '';
 
   constructor(
     private accountService: AccountService,
@@ -73,21 +74,9 @@ export class AccountFormComponent implements OnInit {
     return regex.test(email);
   }
 
-  // checkEmailExists(): void {
-  //   if (this.isEmailValid(this.taikhoan.taikhoan_email)) {
-  //     this.accountService.checkEmail(this.taikhoan.taikhoan_email).subscribe(
-  //       (exists) => {
-  //         this.emailExists = exists;
-  //         if (this.emailExists) {
-  //           this.message = 'Email đã tồn tại. Vui lòng chọn email khác.';
-  //         }
-  //       },
-  //       (error) => console.error('Error checking email:', error)
-  //     );
-  //   } else {
-  //     this.message = 'Email không hợp lệ. Vui lòng nhập lại.';
-  //   }
-  // }
+  passwordsMatch(): boolean {
+    return this.taikhoan.taikhoan_matkhau === this.confirmPassword; // Check if passwords match
+  }
 
   checkEmailExists(): void {
     // Kiểm tra tính hợp lệ của email

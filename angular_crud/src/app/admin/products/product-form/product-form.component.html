@@ -42,7 +42,7 @@
                 </option>
                 </select>
                 <!-- Thông báo lỗi -->
-                <div *ngIf="(sp_nhacungcapid.invalid || !sanpham.nhacungcap.ncc_ten.trim()) && (sp_nhacungcapid.dirty || sp_nhacungcapid.touched)" class="text-danger">
+                <div *ngIf="sp_nhacungcapid.invalid  && (sp_nhacungcapid.dirty || sp_nhacungcapid.touched)" class="text-danger">
                 Vui lòng chọn nhà cung cấp.
                 </div>
             </div>

@@ -60,8 +60,10 @@ export class CartComponent implements OnInit {
   // Method to remove an item from the cart
   removeFromCart(item: any): void {
     this.cartItems = this.cartItems.filter(cartItem => cartItem.product.sp_id !== item.product.sp_id);
+    this.cartService.updateCartItems(this.cartItems); 
     this.calculateTotalPrice(); // Recalculate total price after removing an item
   }
+
 
   checkLoginAndPlaceOrder(): void {
     if (!this.email) {

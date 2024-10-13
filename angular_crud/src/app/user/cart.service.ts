@@ -36,4 +36,10 @@ export class CartService {
   clearCart() {
     this.cartItems = []; // Xóa tất cả các mặt hàng trong giỏ hàng
   }
+
+  updateCartItems(items: any[]): void {
+    this.cartItems = items;
+    localStorage.setItem('cart', JSON.stringify(this.cartItems)); // Cập nhật localStorage nếu cần
+}
+
 }
